@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Options from './Options';
+// import Options from './Options';
 import ScoreBoard from './ScoreBoard';
 import Result from './Result';
 
@@ -8,7 +8,9 @@ class App extends Component{
       outcome: 'first',
       score1: 0,
       score2: 0,
-      firstPlayer: true
+      firstPlayer: true,
+      outPlayer1: '',
+      outPlayer2: ''
     }
 
 
@@ -26,6 +28,12 @@ class App extends Component{
     console.log('[App.js] theGame for Player 1: ' + res1)
     const res2 = this.valueAssignment(Math.floor(Math.random()*3));
     console.log('[App.js] theGame for Player 2: ' + res2)
+
+    this.setState({
+      outPlayer1: res1,
+      outPlayer2: res2
+    })
+
     return this.gameResult(res1, res2);
   }
 
@@ -72,14 +80,18 @@ class App extends Component{
   }
 
   render(){
+
+    let styleH1 = {
+      textAlign: 'center'
+    }
     
     return(
       <div>
-        <h1>Rock Scissors Paper</h1>
+        <h1 style={styleH1}>ROCK SCISSORS PAPER</h1>
         <hr/>
-        <Options name='Rock'/>
+        {/* <Options name='Rock'/>
         <Options name='Scissors'/>
-        <Options name='Paper'/>
+        <Options name='Paper'/> */}
         <hr/>
         <ScoreBoard 
         user='Player1' 
@@ -91,7 +103,10 @@ class App extends Component{
         <button onClick={this.startGame} value='button value'>Play the Game</button>
         <div>
         </div>
-        <Result outcome={this.state.outcome}/>
+        <Result 
+        outcome={this.state.outcome} 
+        player1 = {this.state.outPlayer1}
+        player2 ={this.state.outPlayer2}/>
       
       </div>
     )
